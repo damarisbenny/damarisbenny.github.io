@@ -37,21 +37,32 @@ const PublicationList = () => {
     // Function to highlight "Damaris Benny" or similar variations in author list
     const highlightAuthor = (authors) => {
         if (!authors) return "";
-        const nameVariations = ["D Benny", "D. Benny", "Damaris Benny", "D Daniel", "Damaris Daniel"];
+        // List of variations found in Google Scholar data
+        const nameVariations = [
+            "Damaris Benny Daniel",
+            "Damaris Benny",
+            "Damaris Daniel",
+            "D. Benny",
+            "D Benny",
+            "DB Daniel",
+            "D B Daniel",
+            "D. B. Daniel"
+        ];
 
-        // Simple bolding approach (Note: real Google Scholar data is just a string usually)
-        // We'll wrap the known name in <strong> tags if we were parsing HTML, but here we render text.
-        // Since we receive a string, we can try to split and preserve.
-
-        // However, simplest React way for a substring match:
-        // Regex based simple replacement for display
-        const parts = authors.split(new RegExp(`(${nameVariations.join('|')})`, 'gi'));
+        // Create a regex that matches any of the variations, case-insensitive
+        // We use word boundaries where appropriate, but for initials followed by names, 
+        // simple substring matching often works better given the variability.
+        // We sort by length descending to match longest variations first.
+        const sortedVariations = nameVariations.sort((a, b) => b.length - a.length);
+        const regexPattern = `(${sortedVariations.map(v => v.replace('.', '\\.')).join('|')})`;
+        const parts = authors.split(new RegExp(regexPattern, 'gi'));
 
         return (
             <span>
                 {parts.map((part, i) =>
-                    nameVariations.some(v => v.toLowerCase() === part.toLowerCase()) ?
-                        <strong key={i} className="text-gray-900 border-b-2 border-academic-accent/20">{part}</strong> :
+                    // Check if this part matches any variation (case-insensitive)
+                    sortedVariations.some(v => v.toLowerCase() === part.toLowerCase()) ?
+                        <strong key={i} className="text-gray-900 font-bold border-b-2 border-academic-accent/20">{part}</strong> :
                         <span key={i}>{part}</span>
                 )}
             </span>
