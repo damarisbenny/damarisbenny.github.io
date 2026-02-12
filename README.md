@@ -56,10 +56,9 @@ This updates `public/publications.json`.
 
 The website is configured to deploy to **GitHub Pages**.
 
-1.  Go to your GitHub repository settings.
-2.  Navigate to **Pages**.
-3.  Under **Source**, select **GitHub Actions**.
-4.  Push your changes to the `main` branch.
+1.  **URL**: `https://damarisbenny.github.io/` (or `https://damarisbenny.github.io/damarisbenny/` depending on your repository name).
+2.  **Source**: Ensure **GitHub Actions** is selected in Settings > Pages.
+3.  **Updates**: Pushing to `main` triggers a build and deploy.
 
 The included workflow `.github/workflows/update-publications.yml` will:
 1.  Run weekly (Sundays).
