@@ -19,6 +19,13 @@ function App() {
             {/* Sidebar Navigation */}
             <aside className="w-full md:w-64 bg-academic-blue text-white md:h-screen md:fixed flex flex-col justify-between p-6 z-10">
                 <div>
+                    <div className="mb-6">
+                        <img
+                            src={profile.basics.avatar}
+                            alt={profile.basics.name}
+                            className="w-32 h-32 rounded-full border-4 border-blue-400/30 shadow-lg object-cover mx-auto md:mx-0"
+                        />
+                    </div>
                     <h1 className="text-2xl font-bold mb-2">{profile.basics.name}</h1>
                     <p className="text-blue-200 text-sm mb-8">{profile.basics.role}<br />{profile.basics.focus}</p>
 
